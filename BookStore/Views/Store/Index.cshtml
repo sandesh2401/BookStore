@@ -1,0 +1,458 @@
+﻿@model IEnumerable<BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Store";
+}
+
+<head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+</head>
+
+<div class="container-fluid">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:2rem;">
+        <h2 class="my-4 text-center" style="margin: 0 0 ;">Store</h2>
+
+        <form asp-action="Index" class="search-form">
+            <div class="search-box">
+                <input type="text" name="searchString" placeholder="Title, Author, Publisher or ISBN" />
+                <button type="submit">
+                    <img src="https://img.icons8.com/pastel-glyph/64/FFFFFF/search--v2.png" />
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- New Carousel -->
+<div class="container-fluid ">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://www.bookswagon.com/bannerimages/83_inr.jpg?v=5.4" class="d-block w-100" alt="First Slide">
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.bookswagon.com/bannerimages/84_inr.jpg?v=5.4" class="d-block w-100" alt="Second Slide">
+            </div>
+            <div class="carousel-item">
+                <img src="https://www.bookswagon.com/bannerimages/31_inr.jpg?v=1.4" class="d-block w-100" alt="Third Slide">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class="separator-container">
+    <div class="separator-line"></div>
+    <h3 id="bestSellers" class="section-heading">BestSellers</h3>
+    <div class="separator-line"></div>
+</div>
+
+<div class="container text-center my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-2">
+            <div class="card my-2 store-card">
+                <img src="https://i.etsystatic.com/15997414/r/il/981327/6181915802/il_794xN.6181915802_s4iu.jpg" class="card-img-top" alt="The Art of Miniature Painting" />
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger">The Art of Miniature Painting</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card my-2 store-card">
+                <img src="https://pictures.abebooks.com/isbn/9780393354324-us.jpg" class="card-img-top" alt="Guns, Germs, and Steel" />
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger">Guns, Germs, and Steel</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card my-2 store-card">
+                <img src="https://i0.wp.com/www.raptisrarebooks.com/images/45622/10-of-the-most-rare-books-of-all-time.jpg?w=360&ssl=1" class="card-img-top" alt="Tamerlane and Other Poems" />
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger">Tamerlane and Other Poems</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card my-2 store-card">
+                <img src="https://pictures.abebooks.com/isbn/9780374535117-us.jpg" class="card-img-top" alt="Encounters at the Heart of the World" />
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger">Encounters at the Heart of the World</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card my-2 store-card">
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1581527774i/41881472.jpg" class="card-img-top" alt="The Psychology of Money" />
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger">The Psychology of Money</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card my-2 store-card">
+                <img src="https://pictures.abebooks.com/isbn/9781482834406-us-300.jpg" class="card-img-top" alt="Bhagwat Gita - Its Essence" />
+                <div class="card-body text-center">
+                    <h5 class="card-title text-danger">Bhagwat Gita - Its Essence</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="separator-container">
+    <div class="separator-line"></div>
+    <h3 id="ourCollection" class="section-heading" >Our Book Collection</h3>
+    <div class="separator-line"></div>
+</div>
+
+
+
+
+<div class="container my-4">
+    <div class="row">
+        @foreach (var chunk in Model.Chunk(6))
+        {
+            foreach (var book in chunk)
+            {
+                <div class="col-md-2 mb-4">
+                    <div class="card h-100 store-card shadow-sm border-0">
+                        <div class="position-relative">
+                            <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@book.Id">
+                                <img src="@book.ImageUrl" class="card-img-top rounded" alt="@book.Title" />
+                                <div class="overlay">
+                                    <div class="text">View Details</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title font-weight-bold">@book.Title</h5>
+                            <p class="card-text text-muted">@book.Price.ToString("c")</p>
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@book.Id" class="btn btn-success store-btn">
+                                <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+
+
+
+
+<!-- Infinite Scroll Trigger -->
+<div id="infinite-scroll-trigger" class="text-center my-4">
+    @* <p>Loading more books...</p> *@
+</div>
+
+<!-- Go to Top Button -->
+<a href="#" class="back-to-top active" id="backToTop">
+    <img src="https://img.icons8.com/external-tanah-basah-basic-outline-tanah-basah/24/FFFFFF/external-chevron-arrows-tanah-basah-basic-outline-tanah-basah.png" />
+</a>
+
+@section Scripts {
+    <script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        // Infinite Scroll
+        let infiniteScrollEnabled = true;
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && infiniteScrollEnabled) {
+                    // Simulate loading more books (you would replace this with an AJAX call to load more data)
+                    infiniteScrollEnabled = false;
+                    setTimeout(() => {
+                        infiniteScrollEnabled = true;
+                        // Append more books to the carousel here
+                    }, 1500);
+                }
+            });
+        });
+        observer.observe(document.querySelector('#infinite-scroll-trigger'));
+
+        // Go to Top Button
+        document.getElementById('backToTop').addEventListener('click', (event) => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Toggle visibility of Go to Top button
+        window.addEventListener('scroll', () => {
+            const backToTopButton = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                backToTopButton.style.opacity = '1';
+                backToTopButton.style.visibility = 'visible';
+            } else {
+                backToTopButton.style.opacity = '0';
+                backToTopButton.style.visibility = 'hidden';
+            }
+        });
+    </script>
+}
+
+<style>
+    /* General carousel styling */
+    .carousel-inner {
+        padding: 0;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 5%;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        filter: invert(100%);
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        padding: 10px;
+    }
+
+    .separator-container {
+        text-align: center;
+        margin: 2rem 0;
+    }
+
+    .separator-line {
+        width: 100%;
+        height: 2px;
+        background-color: #007bff;
+        margin: 10px 0;
+    }
+
+    .section-heading {
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    /* Card styling */
+    .card {
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: auto;
+        max-height: 300px; /* Reduced height */
+        object-fit: cover; /* Adjusted to cover to ensure no empty space */
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .store-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .store-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .store-card img {
+            transition: transform 0.3s;
+        }
+
+            .store-card img:hover {
+                transform: scale(1.05);
+            }
+
+        .store-card .overlay {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.25rem;
+        }
+
+            .store-card .overlay .text {
+                color: white;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+        .store-card:hover .overlay {
+            opacity: 1;
+        }
+
+    .card-title {
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #888;
+    }
+
+    .store-btn {
+        background-color: #34a853;
+        border: none;
+        color: white;
+        transition: background-color 0.3s;
+    }
+
+        .store-btn:hover {
+            background-color: #0b7c14;
+        }
+
+    .card-title {
+        font-size: 1.1rem; /* Slightly smaller for a better fit */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        color: #888;
+    }
+
+    /* Button styling */
+    .store-btn {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+        .store-btn:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+    /* For better spacing and alignment */
+    .row.justify-content-center {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .col-md-2 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+
+    /* Go to Top Button */
+    .back-to-top {
+        position: fixed;
+        right: 20px;
+        bottom: 40px;
+        height: 50px;
+        width: 50px;
+        text-align: center;
+        background-color: #0b7c14;
+        color: #fff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+        .back-to-top img {
+            height: 30px;
+            width: 30px;
+        }
+
+        .back-to-top:hover {
+            background-color: #0b7c14;
+            color: #fff;
+        }
+
+    .search-form {
+        display: flex;
+        justify-content: flex-end; /* Center the search bar horizontally */
+        align-items: center;
+        width: 100%; /* Ensures the form takes up the full width of the container */
+        margin-bottom: 20px; /* Adds some space below the search bar */
+    }
+
+    .search-box {
+        
+        display: flex;
+        align-items: center;
+        border: 1px solid #0b7c14; /* Green shade for the border */
+        border-radius: 25px; /* More rounded corners for a modern look */
+        padding: 2px; /* Padding around the box */
+        overflow: hidden; /* Ensures the rounded corners apply to the entire search box */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        max-width: 400px; /* Limit the maximum width of the search bar */
+        width: 100%; /* Make the search bar responsive */
+    }
+
+        .search-box input[type="text"] {
+            border: none;
+            outline: none;
+            flex-grow: 1; /* Makes the input take up the remaining space */
+            padding: 10px 16px; /* Increased padding for a more substantial look */
+            font-size: 1rem;
+            border-radius: 25px 0 0 25px; /* Rounded corners on the left side */
+        }
+
+        .search-box button {
+            background-color: #0b7c14; /* Green shade for the search button */
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 0 25px 25px 0; /* Rounded corners on the right side */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+        }
+
+            .search-box button:hover {
+                background-color: #096a11; /* Darker green on hover */
+            }
+
+            .search-box button img {
+                width: 20px;
+                height: 20px;
+                filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2)); /* Subtle shadow for the icon */
+            }
+
+
+</style>
+

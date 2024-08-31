@@ -1,0 +1,359 @@
+﻿@model IEnumerable<BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Book List";
+
+    string HasImage(Book book)
+    {
+        return !string.IsNullOrEmpty(book.ImageUrl) ? "fa-solid fa-check text-success" : "fa-solid fa-x text-danger";
+    }
+
+    int serialNumber = 0;
+
+    string TruncateDescription(string description)
+    {
+        return description.Length > 100 ? description.Substring(0, 100) + "..." : description;
+    }
+}
+
+<h1 class="book-list-title"><i class="fa-solid fa-book"></i> Book List</h1>
+
+<p class="text-end">
+    <a asp-action="Create" class="btn btn-primary btn-lg"><i class="fa-solid fa-plus"></i> Add Book</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover shadow-lg">
+        <thead class="bg-gradient-primary text-white text-center align-middle">
+            <tr>
+                <th>#</th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Author)</th>
+                <th>@Html.DisplayNameFor(model => model.Language)</th>
+                <th>@Html.DisplayNameFor(model => model.ISBN)</th>
+                <th>@Html.DisplayNameFor(model => model.DatePublished)</th>
+                <th>@Html.DisplayNameFor(model => model.Price)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>Has Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
+            {
+                <tr class="align-middle @(index % 2 == 0 ? "bg-light-green" : "bg-dark-green")">
+                    <td class="text-center">@(++serialNumber)</td>
+                    <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                    <td class="text-info">@Html.DisplayFor(modelItem => item.Language)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ISBN)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DatePublished)</td>
+                    <td class="text-success">@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td class="description-cell">
+                        @TruncateDescription(item.Description)
+                    </td>
+                    <td class="text-center">
+                        <i class="@HasImage(item)" title="@(!string.IsNullOrEmpty(item.ImageUrl) ? "Image Available" : "No Image")"></i>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-white" title="Edit Book">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white" title="View Details">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger text-white" title="Delete Book">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .book-list-title {
+        color: black; /* Sets the text color to black */
+        font-size: 2.5rem; /* Adjust font size as needed */
+        font-weight: bold; /* Makes the text bold */
+        text-align: center; /* Center-align the text */
+        margin: 2rem 0; /* Adjust top and bottom margin */
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #007bff, #6610f2);
+    }
+
+    .table thead th {
+        background-color: #34a853 !important;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn-primary {
+        background-color: #34a853 !important;
+        border-color: #34a853;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    .table-bordered {
+        border: 2px solid black;
+    }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid black;
+        }
+
+    .text-info {
+        color: black !important;
+    }
+
+    .text-success {
+        color: red !important;
+        font-weight: bold;
+    }
+
+    .fw-bold {
+        font-weight: 700;
+    }
+
+    .bg-light-green {
+        background-color: white; /* Light green */
+    }
+
+    .bg-dark-green {
+        background-color: #c3e6cb; /* Darker green */
+    }
+
+    .description-cell {
+        max-width: 300px; /* Adjust width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table tbody td {
+        color: black; /* Ensures all text in table cells is black */
+    }
+</style>
+
+
+@* @model IEnumerable<BookStore.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+
+    string HasImage(Book book)
+    {
+        return !string.IsNullOrEmpty(book.ImageUrl) ? "fa-solid fa-check text-success" : "fa-solid fa-x text-danger";
+    }
+
+    int serialNumber = 0;
+
+    string TruncateDescription(string description)
+    {
+        return description.Length > 100 ? description.Substring(0, 100) + "..." : description;
+    }
+}
+
+<h1 class="book-list-title"><i class="fa-solid fa-book"></i> Index</h1>
+
+<p class="text-end">
+    <a asp-action="Create" class="btn btn-primary btn-lg"><i class="fa-solid fa-plus"></i> Add Book</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover shadow-lg">
+        <thead class="bg-gradient-primary text-white text-center align-middle">
+            <tr>
+                <th>#</th>
+                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                <th>@Html.DisplayNameFor(model => model.Author)</th>
+                <th>@Html.DisplayNameFor(model => model.Language)</th>
+                <th>@Html.DisplayNameFor(model => model.ISBN)</th>
+                <th>@Html.DisplayNameFor(model => model.DatePublished)</th>
+                <th>@Html.DisplayNameFor(model => model.Price)</th>
+                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                <th>Has Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var (item, index) in Model.Select((item, index) => (item, index)))
+            {
+                <tr class="align-middle @(index % 2 == 0 ? "bg-light-green" : "bg-dark-green")">
+                    <td class="text-center">@(++serialNumber)</td>
+                    <td class="fw-bold">@Html.DisplayFor(modelItem => item.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Author)</td>
+                    <td class="text-info">@Html.DisplayFor(modelItem => item.Language)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ISBN)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DatePublished)</td>
+                    <td class="text-success">@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td class="description-cell">
+                        @TruncateDescription(item.Description)
+                    </td>
+                    <td class="text-center">
+                        <i class="@HasImage(item)" title="@(!string.IsNullOrEmpty(item.ImageUrl) ? "Image Available" : "No Image")"></i>
+                    </td>
+                    <td class="text-center">
+                        <div class="btn-group" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-white" title="Edit Book">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white" title="View Details">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger text-white" title="Delete Book">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .book-list-title {
+        color: black; /* Sets the text color to black */
+        font-size: 2.5rem; /* Adjust font size as needed */
+        font-weight: bold; /* Makes the text bold */
+        text-align: center; /* Center-align the text */
+        margin: 2rem 0; /* Adjust top and bottom margin */
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #007bff, #6610f2);
+    }
+
+    .table thead th {
+        background-color: #34a853 !important;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn-primary {
+        background-color: #34a853 !important;
+        border-color: #34a853;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    .table-bordered {
+        border: 2px solid black;
+    }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid black;
+        }
+
+    .text-info {
+        color: black !important;
+    }
+
+    .text-success {
+        color: red !important;
+        font-weight: bold;
+    }
+
+    .fw-bold {
+        font-weight: 700;
+    }
+
+    .bg-light-green {
+        background-color: white; /* Light green */
+    }
+
+    .bg-dark-green {
+        background-color: #c3e6cb; /* Darker green */
+    }
+
+    .description-cell {
+        max-width: 300px; /* Adjust width as needed */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .table tbody td {
+        color: black; /* Ensures all text in table cells is black */
+    }
+</style>
+ *@

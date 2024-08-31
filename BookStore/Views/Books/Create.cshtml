@@ -1,0 +1,192 @@
+﻿@model BookStore.Models.Book
+
+
+<h1 class="create-title"><i class="fa-solid fa-plus-circle icon"></i>Add New Book</h1>
+
+<div class="container mt-2">
+    <!-- Reduced top margin -->
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Title" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-book"></i></span>
+                                        <input asp-for="Title" class="form-control" placeholder="Book title" />
+                                    </div>
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Author" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                        <input asp-for="Author" class="form-control" placeholder="Author name" />
+                                    </div>
+                                    <span asp-validation-for="Author" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ISBN" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-barcode"></i></span>
+                                        <input asp-for="ISBN" class="form-control" placeholder="ISBN" />
+                                    </div>
+                                    <span asp-validation-for="ISBN" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Language" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-language"></i></span>
+                                        <input asp-for="Language" class="form-control" placeholder="Language" />
+                                    </div>
+                                    <span asp-validation-for="Language" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="DatePublished" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-calendar-alt"></i></span>
+                                        <input asp-for="DatePublished" class="form-control" placeholder="Published date" />
+                                    </div>
+                                    <span asp-validation-for="DatePublished" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Price" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-dollar-sign"></i></span>
+                                        <input asp-for="Price" class="form-control" placeholder="Price" />
+                                    </div>
+                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <label asp-for="ImageUrl" class="form-label"></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fa-solid fa-image"></i></span>
+                                        <input asp-for="ImageUrl" class="form-control" placeholder="Image URL" />
+                                    </div>
+                                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description" class="form-label"></label>
+                            <textarea asp-for="Description" class="form-control" rows="2" placeholder="Book description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 text-start">
+                                <a asp-action="Index" class="btn btn-warning"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    body {
+        background-image: url('https://static.vecteezy.com/system/resources/previews/045/906/793/non_2x/stack-of-books-on-orange-background-free-photo.jpeg'); /* Path to your image */
+        background-size: cover; /* Ensures the image covers the entire background */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-position: center; /* Centers the background image */
+        background-attachment: fixed; /* Keeps the background fixed when scrolling */
+    }
+
+    h1{
+        margin-top: 500px;
+    }
+
+    .create-title {
+        color: black; /* Sets the text color to black */
+        font-size: 2.5rem; /* Adjust font size as needed */
+        font-weight: bold; /* Makes the text bold */
+        text-align: center; /* Center-align the text */
+        margin: 0 0 0rem; /* Adjust top and bottom margin */
+    }
+
+    .icon {
+        margin-right: 1rem; /* Adjust the spacing as needed */
+    }
+
+
+    .card {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: rgba(255, 255, 255, 0.4); /* White background with 80% opacity */
+        border-radius: 8px; /* Optional: Adds rounded corners */
+    }
+
+    .card-title {
+        color: black;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .input-group-text {
+        background-color: #34a853;
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #34a853;
+        border-color: #34a853;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .text-white {
+        color: #ffffff;
+    }
+
+    /* Reduce spacing between heading and container */
+    h1 {
+        margin-bottom: 1.2rem; /* Adjust as needed */
+    }
+
+    .container {
+        margin-top: 0 rem; /* Adjust as needed */
+    }
+</style>

@@ -1,0 +1,225 @@
+﻿@model BookStore.Models.About
+@{
+    ViewData["Title"] = "About Us";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @* <link rel="stylesheet" href="~/css/myCss.css"> <!-- Link to your CSS file --> *@
+    <title>@ViewBag.Title</title>
+    <style>
+
+        
+        .about-page {
+            position: relative; /* Ensure relative positioning for pseudo-element */
+            overflow: auto; /* Prevent scrolling issues */
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the background image */
+            background-attachment: fixed; /* Keeps the background fixed when scrolling */
+        }
+
+        .about-page::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://img.freepik.com/premium-photo/bookshelves-with-many-books-library-blurred-background-with-window_646632-2378.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            filter: blur(8px); /* Adjust blur level as needed */
+            z-index: -1; /* Ensure the blur effect is behind the content */
+        }
+
+        .container {
+            position: relative;
+            z-index: 1; /* Ensure content is above the blurred background */
+        }
+
+        .text-muted {
+            color: #34a853 !important;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border-radius: 10px; /* Rounded corners for cards */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px); /* Slight lift effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        .card-img-top {
+            height: 250px; /* Adjust height */
+            width: 100%; /* Full width */
+            object-fit: contain; /* Crop the image to fit */
+        }
+
+        .card-body {
+            background: rgba(255, 255, 255, 0.8); /* Light background for text readability */
+            border-top: 1px solid #e0e0e0; /* Subtle border on top */
+            padding: 20px; /* Consistent padding */
+        }
+
+        .d-flex {
+            display: flex;
+            justify-content: center; /* Center icons */
+            gap: 15px; /* Spacing between icons */
+        }
+
+        .bi, .fab, .fas {
+            font-size: 24px;
+            color: #34a853; /* Icon color */
+            transition: color 0.3s;
+        }
+
+        .bi:hover, .fab:hover, .fas:hover {
+            color: #000; /* Change color on hover */
+        }
+
+        @@media (max-width: 600px) {
+            .card-img-top {
+                height: 200px; /* Adjust height for smaller screens */
+            }
+        }
+    </style>
+        
+</head>
+
+<body class="about-page">
+    <div class="container text-center py-5">
+        <h3>Building Team</h3>
+        <h4 class="text-muted">Introducing the talented team driving our project's success with skill and passion.</h4>
+        <div class="row row-cols-1 row-cols-md-3 g-4 py-5">
+            <div class="col">
+                <div class="card">
+                    <img src="~/Images/Nishant.jpg" class="card-img-top" alt="Leanne Graham">
+                    <div class="card-body">
+                        <h5 class="card-title">Nishant Bansal</h5>
+                        <p>PG Diploma in Advanced Computing</p>
+                    </div>
+                    <div class="d-flex justify-content-evenly p-4">
+                        <a href="https://github.com/Nishant8441" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/nishant-bansal-a74bb3214/" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:nishant.bansal2018@vitalum.ac.in" class="text-decoration-none">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://wa.me/8441079065" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="~/Images/Yash.jpg" class="card-img-top" alt="Leanne Graham">
+                    <div class="card-body">
+                        <h5 class="card-title">Yash Govind Chimade</h5>
+                        <p>PG Diploma in Advanced Computing</p>
+                    </div>
+                    <div class="d-flex justify-content-evenly p-4">
+                        <a href="https://github.com/Yashchimade?tab" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/yash-chimade-168724201" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:yashchimade06@gmail.com" class="text-decoration-none">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://wa.me/9527829737" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="~/Images/Aditi.jpg" class="card-img-top" alt="Leanne Graham">
+                    <div class="card-body">
+                        <h5 class="card-title">Aditi Chandrashekhar Hedau</h5>
+                        <p>PG Diploma in Advanced Computing</p>
+                    </div>
+                    <div class="d-flex justify-content-evenly p-4">
+                        <a href="https://github.com/Aditi-Hedau" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aditi-hedau-480a2a230/" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:aditi.hedau303@gmail.com" class="text-decoration-none">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://wa.me/9167765758" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="~/Images/Sandesh.jpg" class="card-img-top" alt="Ervin Howell">
+                    <div class="card-body">
+                        <h5 class="card-title">Sandesh Manoj Kankriya</h5>
+                        <p>PG Diploma in Advanced Computing</p>
+                    </div>
+                    <div class="d-flex justify-content-evenly p-4">
+                        <a href="https://github.com/sandesh2401" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/skankriya" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:kankriyask13@gmail.com" class="text-decoration-none">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://wa.me/8055498742" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <img src="~/Images/Jitendra.jpg" class="card-img-top" alt="Ervin Howell">
+                    <div class="card-body">
+                        <h5 class="card-title">Jitendra Mangilal Choudhary</h5>
+                        <p>PG Diploma in Advanced Computing</p>
+                    </div>
+                    <div class="d-flex justify-content-evenly p-4">
+                        <a href="https://github.com/cjitendra125" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jitendra-choudhary-128857154" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="mailto:choudharyjitendra125@gmail.com" class="text-decoration-none">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://wa.me/9594514427" target="_blank" class="text-decoration-none">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

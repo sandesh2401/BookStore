@@ -1,0 +1,191 @@
+﻿@model BookStore.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> 
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BookStore.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/myCss.css" />
+
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f8f8f8;
+            color: #333;
+            padding-top: 60px;
+        }
+
+        /* Headings */
+        h1 {
+            margin-top: 20px;
+            text-align: center;
+            color: #000000;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        h4 {
+            color: #000000;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Horizontal Rule */
+        hr {
+            border-top: 2px solid #0b7c14;
+        }
+
+        /* Labels */
+        dt {
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Details Display */
+        dd {
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* Buttons */
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #333;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+            .btn-warning:hover {
+                background-color: #e0a800;
+                border-color: #d39e00;
+            }
+
+        .btn-primary.store-btn {
+            background-color: #0b7c14;
+            border-color: #0b7c14;
+            color: #fff;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+            .btn-primary.store-btn:hover {
+                background-color: #34a853;
+                border-color: #34a853;
+            }
+
+        /* Image Styling */
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        /* Container */
+        .row {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        /* Links */
+        a {
+            text-decoration: none;
+            color: #0b7c14;
+            font-size: 14px;
+        }
+
+            a:hover {
+                color: #34a853;
+                text-decoration: underline;
+            }
+
+        /* Footer */
+        footer {
+            margin-top: 25px;
+        }
+
+        /* Image Alignment */
+        .image-container {
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Details</h1>
+
+        <div class="row">
+            <div class="col-8">
+                <div>
+                    <h4>Book</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Title)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Title)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Author)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Author)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Language)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Language)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.ISBN)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.ISBN)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.DatePublished)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.DatePublished)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Price)
+                        </dd>
+                        <dt class="col-sm-3">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                    </dl>
+                </div>
+                <div>
+                    <a asp-action="Index" class="btn btn-warning"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@Model.Id" class="btn btn-primary store-btn float-right mr-5">Add to cart <i class="fa-solid fa-cart-plus"></i></a>
+                </div>
+            </div>
+            <div class="col-4 image-container">
+                <img src="@Model.ImageUrl" class="w-100" />
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

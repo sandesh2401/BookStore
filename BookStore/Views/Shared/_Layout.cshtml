@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BookStore</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BookStore.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/myCss.css" />
+    <link rel="stylesheet" href="~/css/register.css"/>
+    <link rel="stylesheet" href="~/css/login.css"/>
+    <style>
+        body {
+            padding-top: 60px;
+
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            padding: 40px;
+            background-color: #f8f8f8;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .footer-social a {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .footer-social img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 26px;
+            color: #0b7c14;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+            .footer-column ul li {
+                margin-bottom: 10px;
+                font-family: "Rubik", sans-serif;
+            }
+
+                .footer-column ul li a {
+                    color: #333;
+                    text-decoration: none;
+                    font-size: 14px;
+                }
+
+                    .footer-column ul li a:hover {
+                        text-decoration: none;
+                        color: #34a853;
+                        transition: color 0.3s ease;
+                    }
+
+        .footer-contact {
+            color: #333; /* General text color */
+            font-family: Arial, sans-serif;
+        }
+
+        .contact-lists {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .contact-box {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 30px; /* Adjust icon size */
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .contact-box .desc .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 5px;
+            color: #000; /* Title color */
+        }
+
+        .contact-box .desc a {
+            text-decoration: none;
+            color: #34a853; /* Link color */
+            font-size: 14px;
+        }
+
+        .contact-box .desc span {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #555; /* Address text color */
+        }
+
+        .contact-box .desc a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .container-fluid > .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+       
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow fixed-top">
+            <div class="container-fluid px-5">
+                <a class="navbar-brand" asp-area="" asp-controller="Store" asp-action="Index">
+                    <img src="/Images/logo.png" alt="Book Store Logo" height="50" width="80" class="d-inline-block align-top mr-2">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Store" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Books" asp-action="Index">Book list</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Category
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+                                <a class="dropdown-item" href="#bestSellers">Best Sellers</a>
+                                <a class="dropdown-item" href="#ourCollection">Our Book Collection</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="About" asp-action="Index">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Contact" asp-action="Index">Contact Us</a>
+                        </li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="ListAllRoles">Roles</a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                    <a class="nav-link text-dark float-right" asp-area="" asp-controller="Cart" asp-action="Index"><i class="fa-solid fa-cart-shopping"></i></a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <img src="/Images/logo.png" alt="" class="footer-logo">
+                <p class="footer-description">
+                    First established in 2024, Catering to the new generation of readers who excited about the history and antique book collection, it has ensured that book-lovers find the place and space intellectually stimulating—in an artistic manner.
+                </p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/"><img src="https://img.icons8.com/fluency/48/facebook-new.png"></a>
+                    <a href="https://twitter.com/"><img src="https://img.icons8.com/fluency/48/twitter.png"></a>
+                    <a href="https://www.linkedin.com/"><img src="https://img.icons8.com/fluency/48/linkedin.png"></a>
+                    <a href="https://www.youtube.com/"><img src="https://img.icons8.com/color/48/youtube-play.png"></a>
+                    <a href="https://www.instagram.com/"><img src="https://img.icons8.com/fluency/48/instagram-new.png"></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Our Collection</h3>
+                <ul>
+                    <li><a href="#">New Releases</a></li>
+                    <li><a href="#">Best Sellers</a></li>
+                    <li><a href="#">Granth Recommends</a></li>
+                    <li><a href="#">Children’s Books</a></li>
+                    <li><a href="#">Gifting</a></li>
+                    <li><a href="#">Coffee Table Books</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Links</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Our Customers Speak</a></li>
+                    <li><a href="#">Granth Limelight</a></li>
+                    <li><a href="#">Gift Vouchers</a></li>
+                    <li><a href="#">School Connect</a></li>
+                    <li><a href="#">Corporate Connect</a></li>
+                    <li><a href="#">Home Library</a></li>
+                    <li><a href="#">Residential Society Library</a></li>
+                    <li><a href="#">Granth Membership</a></li>
+                    <li><a href="#">Take a Virtual Tour of Granth Store</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <div class="footer-contact">
+                    <div class="contact-lists">
+                        <div class="contact-box">
+                            <div class="icon">
+                                <img src="/Images/phone.png" alt="" class="contact-icon">
+                            </div>
+                            <div class="desc">
+                                <h6 class="title">Phone Number</h6>
+                                <a href="tel:+91999999999">+91 999999999</a>
+                            </div>
+                        </div>
+                        <div class="contact-box">
+                            <div class="icon">
+                                <img src="/Images/email.png" alt="" class="contact-icon">
+                            </div>
+                            <div class="desc">
+                                <h6 class="title">Email Address</h6>
+                                <a href="mailto:findyourbook@gmail.com">findyourbook@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-box">
+                            <div class="icon">
+                                <img src="https://img.icons8.com/ios-filled/50/40C057/marker.png" alt="" class="contact-icon">
+                            </div>
+                            <div class="desc">
+                                <h6 class="title">Our Locations</h6>
+
+                                <span class="mb-15">JW Marriott, Juhu Tara Rd, Juhu, Mumbai - 400049</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

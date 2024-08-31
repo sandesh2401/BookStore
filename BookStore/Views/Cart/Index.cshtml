@@ -1,0 +1,289 @@
+﻿@model BookStore.Models.Cart
+
+<h1 class="cart-title"><i class="fa-solid fa-cart-shopping"></i> Cart</h1>
+
+@if (Model.CartItems.Count > 0)
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-lg">
+            <thead class="bg-gradient-primary text-white text-center align-middle">
+                <tr>
+                    <th>#</th>
+                    <th></th>
+                    <th>Book</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int serialNumber = 1; // Initialize serial number
+                }
+                @foreach (var (item, index) in Model.CartItems.Select((item, index) => (item, index)))
+                {
+                    var bookTotal = item.Book.Price * item.Quantity;
+                    <tr class="align-middle @(index % 2 == 0 ? "bg-light-green" : "bg-dark-green")">
+                        <td class="text-center">@serialNumber</td>
+                        <td>
+                            <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">
+                                <img src="@item.Book.ImageUrl" style="height: 4em">
+                            </a>
+                        </td>
+                        <td>
+                            <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">@item.Book.Title</a>
+                        </td>
+                        <td class="text-black">
+                            @bookTotal.ToString("c")
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="Cart" asp-action="ReduceQuantity" asp-route-id="@item.Book.Id" class="btn btn-sm btn-warning btn-quantity">
+                                <i class="fa-solid fa-minus"></i>
+                            </a>
+                            <span class="badge badge-primary">@item.Quantity</span>
+                            <a asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Book.Id" class="btn btn-sm btn-warning btn-quantity">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@item.Book.Id" class="text-danger">
+                                <i class="fa-solid fa-xmark cross-symbol"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    serialNumber++; // Increment serial number
+                }
+            </tbody>
+            <tfoot class="total-row">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right">
+                        <strong>Total:</strong>
+                    </td>
+                    <td>
+                        <strong>@Model?.GetCartTotal().ToString("c")</strong>
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-center my-4">
+            <a asp-controller="Order" asp-action="Checkout" class="btn btn-success btn-lg shadow-lg mx-2">
+                <i class="fa-solid fa-angles-right"></i> Checkout
+            </a>
+            <a asp-controller="Cart" asp-action="ClearCart" class="btn btn-danger btn-lg shadow-lg mx-2">
+                <i class="fa-solid fa-trash-can"></i> Empty Cart
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <h3 class="text-center">Cart is empty</h3>
+}
+
+<style>
+    .cart-title {
+        color: black; /* Sets the text color to black */
+        font-size: 2.5rem; /* Adjust font size as needed */
+        font-weight: bold; /* Makes the text bold */
+        text-align: center; /* Center-align the text */
+        margin: 2rem 0; /* Adjust top and bottom margin */
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #007bff, #6610f2);
+    }
+
+    .table thead th {
+        background-color: #34a853;
+        color: white;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn-primary, .btn-success, .btn-danger, .btn-warning {
+        background-color: #34a853;
+        border-color: #34a853;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+
+        .btn-info:hover {
+            background-color: #138496;
+            border-color: #138496;
+        }
+
+    .table-bordered {
+        border: 2px solid black;
+    }
+
+        .table-bordered th, .table-bordered td {
+            border: 1px solid black;
+        }
+
+    .text-info {
+        color: #17a2b8;
+    }
+
+    .text-success {
+        color: #28a745;
+    }
+
+    .text-black {
+        color: black;
+    }
+
+    .fw-bold {
+        font-weight: 700;
+    }
+
+    .description-cell {
+        max-width: 300px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .a-cleanup {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .badge-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-lg {
+        font-size: 1.25rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .bg-light-green {
+        background-color: #f8f9fa; /* Light green for alternate rows */
+    }
+
+    .bg-dark-green {
+        background-color: #c3e6cb; /* Darker green for alternate rows */
+    }
+
+    .btn-quantity {
+        background-color: #ffc107; /* Attractive background color */
+        border-color: #ffc107;
+        color: black; /* Text color for button icons */
+    }
+
+        .btn-quantity:hover {
+            background-color: #e0a800; /* Hover background color */
+            border-color: #e0a800;
+        }
+
+    .total-row {
+        background-color: #34a853; /* Cart total section color */
+        color: white; /* Text color in total section */
+    }
+
+    .cross-symbol {
+        font-weight: bold;
+        color: red; /* Red color for the cross symbol */
+    }
+</style>
+
+
+@* @model BookStore.Models.Cart
+
+<h1 style="margin-top: 10px;">Cart</h1>
+
+@if (Model.CartItems.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Book</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                var bookTotal = item.Book.Price * item.Quantity;
+                <tr>
+                    <td>
+                        <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id"><img src="@item.Book.ImageUrl" style="height: 4em"></a>
+                    </td>
+                    <td>
+                        <a class="a-cleanup" asp-controller="Store" asp-action="Details" asp-route-id="@item.Id">@item.Book.Title</a>
+                    </td>
+                    <td>
+                        @bookTotal.ToString("c")
+                    </td>
+                    <td>
+                        <a asp-controller="Cart" asp-action="ReduceQuantity" asp-route-id="@item.Book.Id"><i class="fa-solid fa-minus"></i></a>
+                        <span>@item.Quantity</span>
+                        <a asp-controller="Cart" asp-action="IncreaseQuantity" asp-route-id="@item.Book.Id"><i class="fa-solid fa-plus"></i></a>
+                    </td>
+                    <td>
+                        <a asp-controller="Cart" asp-action="RemoveFromCart" asp-route-id="@item.Book.Id" class="text-danger"><i class="fa-solid fa-xmark"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td class="text-right">
+                    <strong>Total:</strong>
+                </td>
+                <td>
+                    <strong>@Model?.GetCartTotal().ToString("c")</strong>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <a class="a-cleanup" asp-controller="Order" asp-action="Checkout"><div class="btn btn-success float-right mr-5">Checkout <i class="fa-solid fa-angles-right"></i></div> </a>
+    <a class="a-cleanup" asp-controller="Cart" asp-action="ClearCart"><div class="btn btn-danger float-right mr-5"><i class="fa-solid fa-trash-can"></i> Empty Cart</div> </a>
+}
+else
+{
+    <h3 class="text-center">Cart is empty</h3>
+} *@

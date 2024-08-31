@@ -1,0 +1,213 @@
+﻿@page
+@model RegisterModel
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<h1 class="register-title"><i class="fa-solid fa-user-plus icon"></i>Register</h1>
+<style>
+    /* body {
+        background-image: url('https://wallpapers.com/images/hd/book-background-fe1vlrrmvaabwo8l.jpg'); /* Path to your image */
+        background-size: cover; /* Ensures the image covers the entire background */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-position: center; /* Centers the background image */
+        background-attachment: fixed; /* Keeps the background fixed when scrolling */
+    } */
+
+    body {
+        position: relative; /* Ensure body is positioned relatively for pseudo-element placement */
+        overflow: hidden; /* Prevents scrolling issues */
+        background-size: cover; /* Ensures the image covers the entire background */
+        background-repeat: no-repeat; /* Prevents the image from repeating */
+        background-position: center; /* Centers the background image */
+        background-attachment: fixed;
+    }
+
+        body::before {
+            content: ""; /* Empty content for pseudo-element */
+            position: absolute; /* Position it absolutely within the body */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://wallpapers.com/images/hd/book-background-fe1vlrrmvaabwo8l.jpg');
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center; /* Centers the background image */
+            background-attachment: fixed; /* Keeps the background fixed when scrolling */
+            filter: blur(10px); /* Adjust the blur level as needed */
+            z-index: -1; /* Ensure the pseudo-element is behind the content */
+        }
+
+    /* Ensure your content is above the blurred background */
+    .content {
+        position: relative;
+        z-index: 1;
+    }
+
+
+
+    .register-title {
+        color: black; /* Sets the text color to black */
+        font-size: 2.5rem; /* Adjust font size as needed */
+        font-weight: bold; /* Makes the text bold */
+        text-align: center; /* Center-align the text */
+        margin: 2rem 0; /* Adjust top and bottom margin */
+    }
+
+    .icon {
+        margin-right: 1rem; /* Adjust the spacing as needed */
+    }
+
+    .container {
+        max-width: 1200px; /* Max width for container */
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: black;
+        text-align: center; /* Center align title */
+        margin-bottom: 1rem;
+    }
+
+    .form-container {
+        background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent white background */
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-floating {
+        margin-bottom: 1rem; /* Consistent spacing between form fields */
+    }
+
+    .input-group-text {
+        background-color: #28a745; /* Green background for icons */
+        color: #fff; /* White icon color */
+        border: none; /* Remove border */
+    }
+
+    .btn-primary {
+        background-color: #34a853; /* Blue background for primary button */
+        border-color: #34a853;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            border-color: #004085;
+        }
+
+    .btn-secondary {
+        background-color: #34a853; /* Secondary button background */
+        border-color: #34a853;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker secondary button on hover */
+            border-color: #545b62;
+        }
+
+    .external-login-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+        .external-login-buttons button {
+            width: 100%;
+        }
+</style>
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <!-- Registration Form -->
+        <div class="col-md-6">
+            <div class="form-container">
+                <h2 class="text-center">Create a New Account</h2>
+                <hr />
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input asp-for="Input.FirstName" class="form-control" placeholder="First Name" />
+                        </div>
+
+                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <input asp-for="Input.LastName" class="form-control" placeholder="Last Name" />
+                        </div>
+
+                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input asp-for="Input.Email" class="form-control" placeholder="Email" />
+                        </div>
+
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-home"></i></span>
+                            <input asp-for="Input.Address" class="form-control" placeholder="Address" />
+                        </div>
+
+                        <span asp-validation-for="Input.Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                            <input asp-for="Input.ZipCode" class="form-control" placeholder="Zip Code" />
+                        </div>
+
+                        <span asp-validation-for="Input.ZipCode" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-city"></i></span>
+                            <input asp-for="Input.City" class="form-control" placeholder="City" />
+                        </div>
+
+                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input asp-for="Input.Password" class="form-control" placeholder="Password" type="password" />
+                        </div>
+
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-floating">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" />
+                        </div>
+
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <button id="registerSubmit" type="submit" class="w-100 btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
